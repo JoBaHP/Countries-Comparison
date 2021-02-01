@@ -1,0 +1,78 @@
+<div class="country-filters">
+  <!--   <div class="search-filter shadow">
+    <input
+      class="form-control"
+      type="text"
+      placeholder="Search for a country..."
+      [(ngModel)]="searchFilter"
+    />
+  </div> -->
+
+  <div class="input-group input-group-sm mb-3">
+    <div class="input-group-prepend"></div>
+    <input
+      type="text"
+      [(ngModel)]="searchFilter"
+      class="form-control"
+      aria-label="Small"
+      aria-describedby="inputGroup-sizing-sm"
+      placeholder="Search for a country..."
+    />
+  </div>
+
+  <div *ngIf="countries; else elseBlock" class="table-responsive">
+    <table class="table table-bordered table-sm" id="myTable">
+      <thead>
+        <tr>
+          <th>
+            <input
+              type="checkbox"
+              [checked]="isAllCheckBoxChecked()"
+              (change)="checkAllCheckBox($event)"
+            />
+          </th>
+          <th>Name</th>
+          <th>Capital</th>
+          <th>Region</th>
+          <th>Population</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let c of countries; let i = index; let odd = odd"
+          [ngClass]="odd ? 'odd_col' : 'even_col'"
+        >
+          <td>
+            <input
+              type="checkbox"
+              value="{{ c.id }}"
+              [(ngModel)]="countries[i].checked"
+            />
+          </td>
+          <td>{{ c.name }}</td>
+          <td>{{ c.capital }}</td>
+          <td>{{ c.region }}</td>
+          <td>{{ c.population }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #elseBlock>No record found</ng-template>
+  <div class="button">
+    <button type="button" class="btn btn-info">Info</button>
+  </div>
+
+  <div>
+    <div style="display: block; width: 50%">
+      <canvas
+        baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
+      >
+      </canvas>
+    </div>
+  </div>
+</div>
